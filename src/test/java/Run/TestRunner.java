@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         // Chemin vers vos fichiers .feature
         features = "src/test/java/Features/Login.feature",
         // Chemin vers vos Step Definitions et Hooks
-        glue = {"Steps"},
+        glue = "Steps",
         tags = "@logout",
 
         // Plugins pour la génération des rapports
