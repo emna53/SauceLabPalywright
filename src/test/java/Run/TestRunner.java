@@ -25,5 +25,5 @@ import org.junit.runner.RunWith;
         // Pour vérifier que chaque étape du feature a un code correspondant
         dryRun = false
 )
-public class Runner {
+public class TestRunner {
 }
