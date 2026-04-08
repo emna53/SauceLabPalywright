@@ -22,7 +22,7 @@ jobs:
         run: mvn compile exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
       - name: Run Cucumber Tests
-        run: mvn test -Dtest=TestRunner # Force l'exécution de ton Runner spécifique
+        run: mvn clean test -Dtest=TestRunner # Force l'exécution de ton Runner spécifique
 
       - name: Upload Test Report
         if: always()
