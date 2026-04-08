@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         features = "src/test/java/Features/Login.feature",
         // Chemin vers vos Step Definitions et Hooks
         glue = {"Steps"},
-        //tags = "@logout",
+        tags = "@logout",
 
         // Plugins pour la génération des rapports
         plugin = {
