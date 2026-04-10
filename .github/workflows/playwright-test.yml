@@ -37,4 +37,5 @@ jobs:
         if: always()
         run: |
           curl -X POST https://emna.app.n8n.cloud/webhook-test/resultplaywright \
+          -H "Content-Type: application/json" \
           -d "status=${{ job.status }}"
