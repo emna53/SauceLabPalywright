@@ -1,7 +1,7 @@
 name: Playwright Java BDD Tests
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Permet le déclenchement depuis n8n
 
 jobs:
   test:
@@ -18,16 +18,24 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Install Dependencies and Playwright Browsers
-        run: |
-          mvn dependency:resolve
-          mvn compile
-          mvn exec:java -e -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
-      - name: Run Cucumber Tests
-        run: mvn test -Dtest=TestRunner
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        #run: mvn compile exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
-      - name: Notify n8n
+
+      - name: Run Cucumber Tests
+        run: mvn clean test -Dtest=TestRunner # Force l'exécution de ton Runner spécifique
+
+      - name: Upload Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cucumber-report
+          path: target/cucumber-reports.html
+
+      - name: Notify n8n of result
         if: always()
         run: |
-          curl -X POST https://emna.app.n8n.cloud/webhook-test/resultplaywright  \
-          -d "status=${{ job.status }}
+          curl -X POST https://emna.app.n8n.cloud/webhook-test/resultplaywright \
+          -H "Content-Type: application/json" \
+          -d "status=${{ job.status }}"
